@@ -1,0 +1,10 @@
+{
+  "name": "tabify",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tabify — a dark, minimalist audio-to-tab web app prototype.",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "preview": "python3 -m http.server 8000"
+  }
+}

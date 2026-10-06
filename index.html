@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tabify — Audio to Tabs</title>
+<meta name="description" content="Tabify turns audio recordings into editable instrument tabs and simple MP4 videos.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell">
+<header class="topbar"><a class="brand" href="#">tabify<span>.</span></a><nav><button class="nav-link active" data-view="transcribe">Transcribe</button><button class="nav-link" data-view="convert">Convert</button></nav><button class="icon-btn" id="settings-btn" aria-label="Settings">⚙</button></header>
+<main>
+<section id="transcribe-view" class="view active-view">
+<div class="hero"><p class="eyebrow">AUDIO → TAB</p><h1>Turn recordings into tabs.</h1><p class="subhead">Analyze a recording, detect pitched notes, and turn the result into an editable transcription.</p></div>
+<label class="dropzone" id="dropzone"><input id="audio-input" type="file" accept="audio/*,.wav,.mp3,.m4a,.ogg,.flac" hidden><div class="upload-mark">↑</div><strong>Drop an audio file here</strong><span>or click to browse · WAV / MP3 / M4A / OGG / FLAC</span></label>
+<section id="workspace" class="workspace hidden">
+<div class="file-row"><div><span class="file-label">FILE</span><h2 id="file-name">track.wav</h2></div><button class="ghost-btn" id="replace-btn">Replace</button></div>
+<div class="controls-row"><button class="play-btn" id="play-btn">▶</button><div class="timeline" id="timeline"><div class="waveform" id="waveform"></div><div class="playhead" id="playhead"></div></div><span class="time" id="time">0:00</span></div><audio id="audio" preload="metadata"></audio>
+<div id="meta-strip" class="meta-strip hidden"><span><b id="duration-meta">0:00</b> duration</span><span><b id="sample-meta">—</b></span><span><b id="channels-meta">—</b></span></div>
+<div class="settings-row"><label>Instrument<select id="instrument"><option>Guitar</option><option>Bass</option><option>Ukulele</option><option>Drums</option><option>Piano</option></select></label><label>Tuning<select id="tuning"><option>Standard (E A D G B E)</option><option>Drop D (D A D G B E)</option><option>Half Step Down</option></select></label><button class="primary-btn" id="transcribe-btn">Analyze audio</button></div>
+<div id="analysis-summary" class="analysis-summary hidden"><div><span>NOTES</span><strong id="note-count">—</strong></div><div><span>EST. BPM</span><strong id="bpm">—</strong></div><div><span>RANGE</span><strong id="range">—</strong></div></div>
+<div class="transcription-card"><div class="card-header"><div><span class="file-label">TRANSCRIPTION</span><h3 id="tab-title">Untitled guitar part</h3></div><span class="status" id="status">Ready</span></div><div class="tab-editor" id="tab-editor" contenteditable="true" spellcheck="false">e|-------------------------|
+B|-------------------------|
+G|-------------------------|
+D|-------------------------|
+A|-------------------------|
+E|-------------------------|</div><div class="editor-footer"><span>Click inside the tab to edit</span><div><button class="ghost-btn" id="copy-btn">Copy tab</button><button class="ghost-btn" id="download-tab">Export .txt</button></div></div></div>
+<div class="info-note"><b>About the analysis</b><span>This browser MVP uses pitch detection and note-to-fret mapping. Dense mixes, chords, distortion, drums, and overlapping instruments need the server-side separation model planned for production.</span></div>
+</section></section>
+<section id="convert-view" class="view"><div class="hero compact"><p class="eyebrow">AUDIO → VIDEO</p><h1>Convert WAV to MP4.</h1><p class="subhead">Create a simple shareable video from an audio file.</p></div><label class="dropzone small" id="convert-dropzone"><input id="convert-input" type="file" accept="audio/wav,audio/x-wav,.wav" hidden><div class="upload-mark">↑</div><strong>Drop a WAV file here</strong><span>or click to browse</span></label><div id="convert-panel" class="convert-panel hidden"><div><span class="file-label">SOURCE</span><h2 id="convert-name">track.wav</h2></div><label>Video image<input id="cover-input" type="file" accept="image/*"></label><button class="primary-btn" id="convert-btn">Convert to MP4</button><p class="note" id="convert-note">The production version uses an FFmpeg worker to render the downloadable MP4.</p></div></section>
+</main>
+</div>
+<div class="modal hidden" id="settings-modal"><div class="modal-card"><div class="card-header"><div><span class="file-label">SETTINGS</span><h3>Tabify preferences</h3></div><button class="icon-btn" id="close-settings">×</button></div><p>More controls will appear here as the transcription engine grows: capo, notation density, note quantization, and export formats.</p></div></div>
+<script src="app.js"></script>
+</body></html>
